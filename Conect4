@@ -1,0 +1,121 @@
+using System.IO;
+using System;
+class Program
+{
+    static void Main()
+    {
+        int i,j;
+  	    int[,] board = new int[7,7];
+  	    board[0,3] = 1;
+	    board[3,2] = 1;
+        board[4,2] = 1;
+  	    board[5,2] = 1;
+  	    board[6,3] = 1;
+  	    int win = 0;
+
+  	    // Original Matrix
+        Console.Write("\nThe matrix is : \n");
+            for(i=0;i<7;i++)
+            {
+                Console.Write("\n");
+                for(j=0;j<7;j++)
+                    Console.Write("{0}\t",board[i,j]);
+                }
+        int r = 1;
+  	    int[,] temp = new int[7,7];
+
+
+        // Rotating Board
+        if(r == 0){
+            // Make new board, assume ccw rotation
+            Console.Write("\nThe new matrix is : \n");
+
+      	    for(i=6;i>=0;i--)
+      	    {
+      	        int x = 6;
+      	        for(j=6;j>=0;j--)
+      	        {
+
+      	            if(board[i,j] != 0)
+      	            {
+      	                //Console.Write("{0}", board[i,j]);
+      	                temp[x,i] = board[i,j];
+      	                x--;
+      	            }
+      	        }
+      	    }
+        }
+        else{
+      	    // Make new board, assume cw rotation
+            Console.Write("\nThe new matrix is : \n");
+
+      	    for(i=6;i>=0;i--)
+      	    {
+      	        int x = 6;
+      	        for(j=6;j>=0;j--)
+      	        {
+
+      	            if(board[i,j] != 0)
+      	            {
+      	                //Console.Write("{0}", board[i,j]);
+      	                temp[x,6-i] = board[i,j];
+      	                x--;
+      	            }
+      	        }
+      	    }
+        }
+        board = temp;
+
+  	    for(i=0;i<7;i++)
+            {
+                Console.Write("\n");
+                for(j=0;j<7;j++)
+                    Console.Write("{0}\t",board[i,j]);
+                }
+
+  	// Spin to Win
+  	for(i = 6; i >= 3; --i )
+	{
+		for(int ix = 6; ix >= 3; --ix )
+		{
+
+		    int XO = 1;
+			if( board[i , ix] == XO     &&
+				board[i-1 , ix-1] == XO &&
+				board[i-2 , ix-2] == XO &&
+				board[i-3 , ix-3] == XO )
+			{
+				win = 1;
+			}
+
+			if( board[i , ix] == XO   &&
+				board[i , ix-1] == XO &&
+				board[i , ix-2] == XO &&
+				board[i , ix-3] == XO )
+			{
+				win = 1;
+			}
+
+			if( board[i , ix] == XO   &&
+				board[i-1 , ix] == XO &&
+				board[i-2 , ix] == XO &&
+				board[i-3 , ix] == XO )
+			{
+				win = 1;
+			}
+
+		}
+
+	}
+
+
+  	if(win == 1){
+        Console.Write("\nVictory ");
+  	}
+  	else{
+        Console.Write("\nNo Winner");
+
+  	}
+
+    }
+}
